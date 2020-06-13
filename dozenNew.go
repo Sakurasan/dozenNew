@@ -38,7 +38,7 @@ type dozenNewTpl struct {
 }
 
 func pushDozenNew(kzz string) bool {
-	DespTpl = strings.Replace(DespTpl, "{time}", "## "+time.Now().AddDate(0, 0, -13).Format("2006-01-02"), -1)
+	DespTpl = strings.Replace(DespTpl, "{time}", "## "+time.Now().Format("2006-01-02"), -1)
 	DespTpl = strings.Replace(DespTpl, "{kzz}", kzz, -1)
 	mv := make(url.Values)
 	mv.Add("text", TextTpl)

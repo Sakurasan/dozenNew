@@ -37,6 +37,10 @@ func (t dozenNewkzz) AddNewKzz(n newkzz) {
 
 }
 
+func (t dozenNewkzz) Print() {
+	fmt.Println(t)
+}
+
 func (t dozenNewkzz) RenewDzenNewkzz() {
 	today := time.Now().AddDate(0, 0, -1).Format("20060102")
 	if _, ok := t[today]; ok {
@@ -146,7 +150,10 @@ func Getkzz() kzz {
 func Publisher(c chan []newkzz) {
 	k := Getkzz()
 	for _, v := range k {
-		Time2DozenNew.AddNewKzz(newkzz{BONDCODE: v.BONDCODE, SNAME: v.SNAME, STARTDATE: v.STARTDATE[:10]})
+		d, _ := time.ParseInLocation("2006-01-02", v.STARTDATE[:10], time.Local)
+		if time.Now().Local().Before(d) {
+			Time2DozenNew.AddNewKzz(newkzz{BONDCODE: v.BONDCODE, SNAME: v.SNAME, STARTDATE: v.STARTDATE[:10]})
+		}
 	}
 	Time2DozenNew.RenewDzenNewkzz()
 
