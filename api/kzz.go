@@ -151,7 +151,7 @@ func Publisher(c chan []newkzz) {
 	k := Getkzz()
 	for _, v := range k {
 		d, _ := time.ParseInLocation("2006-01-02", v.STARTDATE[:10], time.Local)
-		if time.Now().Local().Before(d) {
+		if time.Date(time.Now().Year(), time.Now().Month(), time.Now().Day(), 0, 0, 0, 0, time.Now().Location()).Equal(d) || time.Now().Local().Before(d) {
 			Time2DozenNew.AddNewKzz(newkzz{BONDCODE: v.BONDCODE, SNAME: v.SNAME, STARTDATE: v.STARTDATE[:10]})
 		}
 	}

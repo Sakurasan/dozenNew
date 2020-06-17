@@ -14,7 +14,7 @@ import (
 )
 
 var (
-	notiUrl = ""
+	notiUrl = "https://sc.ftqq.com/SCU48405Tbd1c430d375529c0b284e7caeaa2009b5caca7c3b205a.send"
 
 	TextTpl = "打新日历丨往死里打"
 	DespTpl = `***
@@ -69,9 +69,10 @@ func pushDozenNew(kzz string) bool {
 	m := make(map[string]interface{})
 	_ = json.Unmarshal(body, &m)
 
-	if m["errno"] == 0 {
+	if m["errno"].(float64) == 0 {
 		return true
 	}
+	log.Println(m)
 	return false
 
 }
@@ -106,6 +107,7 @@ func main() {
 				}
 				notry := pushDozenNew(kzz)
 				if !notry {
+					log.Println("重试")
 					for i := 0; i < 3; i++ {
 						time.Sleep(5 * time.Minute)
 						if ok := pushDozenNew(kzz); ok {
